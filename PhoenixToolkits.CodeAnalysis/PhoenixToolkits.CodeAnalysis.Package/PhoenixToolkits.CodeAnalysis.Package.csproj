@@ -11,9 +11,9 @@
     <PackageId>PhoenixToolkits.CodeAnalysis.Analyzers</PackageId>
     <Authors>Phoenix</Authors>
     <PackageLicenseUrl>http://LICENSE_URL_HERE_OR_DELETE_THIS_LINE</PackageLicenseUrl>
-    <PackageProjectUrl>https://github.com/phoenix-chen-2016/PhoenixToolkits.CodeAnalysis</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/yggdrasill-dev/PhoenixToolkits.CodeAnalysis</PackageProjectUrl>
     <PackageIconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</PackageIconUrl>
-    <RepositoryUrl>https://github.com/phoenix-chen-2016/PhoenixToolkits.CodeAnalysis.git</RepositoryUrl>
+    <RepositoryUrl>git@github.com:yggdrasill-dev/PhoenixToolkits.CodeAnalysis.git</RepositoryUrl>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Description>PhoenixToolkits.CodeAnalysis</Description>
     <PackageReleaseNotes></PackageReleaseNotes>

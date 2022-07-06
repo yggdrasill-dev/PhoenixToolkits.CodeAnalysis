@@ -87,16 +87,14 @@ namespace PhoenixToolkits.CodeAnalysis
 			var leadingTrivia = firstToken.LeadingTrivia;
 			var trimmedMethod = methodDecl.ReplaceToken(firstToken, firstToken.WithLeadingTrivia(SyntaxTriviaList.Empty));
 
-			var asyncToken = SyntaxFactory.Token(
-				leadingTrivia,
-				SyntaxKind.AsyncKeyword,
-				SyntaxFactory.TriviaList(SyntaxFactory.ElasticMarker));
+			var asyncToken = SyntaxFactory.Token(SyntaxKind.AsyncKeyword);
 
 			var newModifier = trimmedMethod.Modifiers.Add(asyncToken);
 
 			var newReturnType = SyntaxFactory.ParseTypeName("Task");
 
 			var newMethod = trimmedMethod
+				.WithLeadingTrivia(leadingTrivia)
 				.WithModifiers(newModifier)
 				.WithReturnType(newReturnType)
 				.WithIdentifier(methodDecl.Identifier);

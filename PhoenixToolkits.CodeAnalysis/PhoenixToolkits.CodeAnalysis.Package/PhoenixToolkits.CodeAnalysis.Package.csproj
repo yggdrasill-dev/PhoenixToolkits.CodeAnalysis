@@ -9,15 +9,14 @@
 
   <PropertyGroup>
     <PackageId>PhoenixToolkits.CodeAnalysis.Analyzers</PackageId>
-    <PackageVersion>1.0.0.0</PackageVersion>
     <Authors>Phoenix</Authors>
     <PackageLicenseUrl>http://LICENSE_URL_HERE_OR_DELETE_THIS_LINE</PackageLicenseUrl>
-    <PackageProjectUrl>http://PROJECT_URL_HERE_OR_DELETE_THIS_LINE</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/phoenix-chen-2016/PhoenixToolkits.CodeAnalysis</PackageProjectUrl>
     <PackageIconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</PackageIconUrl>
-    <RepositoryUrl>http://REPOSITORY_URL_HERE_OR_DELETE_THIS_LINE</RepositoryUrl>
+    <RepositoryUrl>https://github.com/phoenix-chen-2016/PhoenixToolkits.CodeAnalysis.git</RepositoryUrl>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Description>PhoenixToolkits.CodeAnalysis</Description>
-    <PackageReleaseNotes>Summary of changes made in this release of the package.</PackageReleaseNotes>
+    <PackageReleaseNotes></PackageReleaseNotes>
     <Copyright>Copyright</Copyright>
     <PackageTags>PhoenixToolkits.CodeAnalysis, analyzers</PackageTags>
     <DevelopmentDependency>true</DevelopmentDependency>
@@ -26,6 +25,8 @@
     <TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);_AddAnalyzersToOutput</TargetsForTfmSpecificContentInPackage>
 
     <Version>0.0.1-beta</Version>
+
+    <Company>Valhalla</Company>
   </PropertyGroup>
 
   <ItemGroup>

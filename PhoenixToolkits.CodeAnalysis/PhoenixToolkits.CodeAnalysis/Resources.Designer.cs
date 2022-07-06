@@ -86,32 +86,5 @@ namespace PhoenixToolkits.CodeAnalysis {
                 return ResourceManager.GetString("PTCA001AnalyzerTitle", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   查詢類似 The &apos;await&apos; operator can only be used within an async method. 的當地語系化字串。
-        /// </summary>
-        internal static string PTCA002AnalyzerDescription {
-            get {
-                return ResourceManager.GetString("PTCA002AnalyzerDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查詢類似 Method name &apos;{0}&apos; uses await, must be declared with async 的當地語系化字串。
-        /// </summary>
-        internal static string PTCA002AnalyzerMessageFormat {
-            get {
-                return ResourceManager.GetString("PTCA002AnalyzerMessageFormat", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查詢類似 The &apos;await&apos; operator can only be used within an async method. 的當地語系化字串。
-        /// </summary>
-        internal static string PTCA002AnalyzerTitle {
-            get {
-                return ResourceManager.GetString("PTCA002AnalyzerTitle", resourceCulture);
-            }
-        }
     }
 }

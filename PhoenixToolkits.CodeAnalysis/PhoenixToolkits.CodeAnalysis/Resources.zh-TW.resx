@@ -118,15 +118,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="PTCA001AnalyzerDescription" xml:space="preserve">
-    <value>UnitTest method without async suffix.</value>
-    <comment>An optional longer localizable description of the diagnostic.</comment>
+    <value>單元測試方法不要有Async字尾。</value>
   </data>
   <data name="PTCA001AnalyzerMessageFormat" xml:space="preserve">
-    <value>Method name '{0}' has async suffix</value>
-    <comment>The format-able message the diagnostic displays.</comment>
+    <value>單元測試 '{0}' 的字尾有 "Async"</value>
   </data>
   <data name="PTCA001AnalyzerTitle" xml:space="preserve">
-    <value>UnitTest method without async suffix</value>
-    <comment>The title of the diagnostic.</comment>
+    <value>單元測試方法不要有Async字尾</value>
   </data>
 </root>

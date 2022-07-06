@@ -1,48 +1,47 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <IncludeBuildOutput>false</IncludeBuildOutput>
-    <SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<IncludeBuildOutput>false</IncludeBuildOutput>
+		<SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	</PropertyGroup>
 
-  <PropertyGroup>
-    <PackageId>PhoenixToolkits.CodeAnalysis.Analyzers</PackageId>
-    <Authors>Phoenix</Authors>
-    <PackageLicenseUrl>http://LICENSE_URL_HERE_OR_DELETE_THIS_LINE</PackageLicenseUrl>
-    <PackageProjectUrl>https://github.com/yggdrasill-dev/PhoenixToolkits.CodeAnalysis</PackageProjectUrl>
-    <PackageIconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</PackageIconUrl>
-    <RepositoryUrl>git@github.com:yggdrasill-dev/PhoenixToolkits.CodeAnalysis.git</RepositoryUrl>
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <Description>PhoenixToolkits.CodeAnalysis</Description>
-    <PackageReleaseNotes></PackageReleaseNotes>
-    <Copyright>Copyright</Copyright>
-    <PackageTags>PhoenixToolkits.CodeAnalysis, analyzers</PackageTags>
-    <DevelopmentDependency>true</DevelopmentDependency>
-    <NoPackageAnalysis>true</NoPackageAnalysis>
+	<PropertyGroup>
+		<PackageId>PhoenixToolkits.CodeAnalysis.Analyzers</PackageId>
+		<Authors>Phoenix</Authors>
+		<PackageProjectUrl>https://github.com/yggdrasill-dev/PhoenixToolkits.CodeAnalysis</PackageProjectUrl>
+		<RepositoryUrl>git@github.com:yggdrasill-dev/PhoenixToolkits.CodeAnalysis.git</RepositoryUrl>
+		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+		<Description>PhoenixToolkits.CodeAnalysis</Description>
+		<PackageReleaseNotes></PackageReleaseNotes>
+		<Copyright>Copyright</Copyright>
+		<PackageTags>PhoenixToolkits.CodeAnalysis, analyzers</PackageTags>
+		<DevelopmentDependency>true</DevelopmentDependency>
+		<NoPackageAnalysis>true</NoPackageAnalysis>
 
-    <TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);_AddAnalyzersToOutput</TargetsForTfmSpecificContentInPackage>
+		<TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);_AddAnalyzersToOutput</TargetsForTfmSpecificContentInPackage>
 
-    <Version>0.0.1-beta</Version>
+		<Version>0.0.2-beta</Version>
 
-    <Company>Valhalla</Company>
-  </PropertyGroup>
+		<Company>Valhalla</Company>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\PhoenixToolkits.CodeAnalysis.CodeFixes\PhoenixToolkits.CodeAnalysis.CodeFixes.csproj" />
-    <ProjectReference Include="..\PhoenixToolkits.CodeAnalysis\PhoenixToolkits.CodeAnalysis.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\PhoenixToolkits.CodeAnalysis.CodeFixes\PhoenixToolkits.CodeAnalysis.CodeFixes.csproj" />
+		<ProjectReference Include="..\PhoenixToolkits.CodeAnalysis\PhoenixToolkits.CodeAnalysis.csproj" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Update="tools\*.ps1" CopyToOutputDirectory="PreserveNewest" Pack="true" PackagePath="" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Update="tools\*.ps1" CopyToOutputDirectory="PreserveNewest" Pack="true" PackagePath="" />
+	</ItemGroup>
 
-  <Target Name="_AddAnalyzersToOutput">
-    <ItemGroup>
-      <TfmSpecificPackageFile Include="$(OutputPath)\PhoenixToolkits.CodeAnalysis.dll" PackagePath="analyzers/dotnet/cs" />
-      <TfmSpecificPackageFile Include="$(OutputPath)\PhoenixToolkits.CodeAnalysis.CodeFixes.dll" PackagePath="analyzers/dotnet/cs" />
-    </ItemGroup>
-  </Target>
+	<Target Name="_AddAnalyzersToOutput">
+		<ItemGroup>
+			<TfmSpecificPackageFile Include="$(OutputPath)\PhoenixToolkits.CodeAnalysis.dll" PackagePath="analyzers/dotnet/cs" />
+			<TfmSpecificPackageFile Include="$(OutputPath)\PhoenixToolkits.CodeAnalysis.CodeFixes.dll" PackagePath="analyzers/dotnet/cs" />
+			<TfmSpecificPackageFile Include="$(OutputPath)\zh-TW\*.resources.dll" PackagePath="analyzers/dotnet/cs/zh-TW" />
+		</ItemGroup>
+	</Target>
 
 </Project>

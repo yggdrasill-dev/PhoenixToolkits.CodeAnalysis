@@ -20,15 +20,15 @@ namespace PhoenixToolkits.CodeAnalysis
 		// TODO: Replace with actual diagnostic id that should trigger this fix.
 		public const string DiagnosticId = "CS4033";
 
-		public override sealed ImmutableArray<string> FixableDiagnosticIds
-			=> ImmutableArray.Create(DiagnosticId, "CS4032");
-
-		public override sealed FixAllProvider GetFixAllProvider()
-			=> WellKnownFixAllProviders.BatchFixer;
-
 		private static readonly ImmutableHashSet<string> _UnitTestAttributeNames = ImmutableHashSet.Create(
 			"TestMethod",
 			"Test");
+
+		public override sealed ImmutableArray<string> FixableDiagnosticIds
+					=> ImmutableArray.Create(DiagnosticId, "CS4032");
+
+		public override sealed FixAllProvider GetFixAllProvider()
+			=> WellKnownFixAllProviders.BatchFixer;
 
 		public override sealed async Task RegisterCodeFixesAsync(CodeFixContext context)
 		{

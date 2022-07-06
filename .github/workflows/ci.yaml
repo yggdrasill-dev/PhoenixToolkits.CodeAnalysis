@@ -37,11 +37,6 @@ jobs:
           name: Dotnet Tests            # Name of the check run which will be created
           path: '**/TestResults/*.trx'    # Path to test results
           reporter: dotnet-trx
-
-      - name: Pack
-        run: |
-          dotnet build -c ${{env.BuildConfiguration}} PhoenixToolkits.CodeAnalysis/PhoenixToolkits.CodeAnalysis.Package/PhoenixToolkits.CodeAnalysis.Package.csproj
-          dotnet pack -c ${{env.BuildConfiguration}} --no-restore PhoenixToolkits.CodeAnalysis/PhoenixToolkits.CodeAnalysis.Package/PhoenixToolkits.CodeAnalysis.Package.csproj
       
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v3

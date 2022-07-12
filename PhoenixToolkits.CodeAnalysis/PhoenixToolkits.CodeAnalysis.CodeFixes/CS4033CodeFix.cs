@@ -17,7 +17,6 @@ namespace PhoenixToolkits.CodeAnalysis
 	[ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(CS4033CodeFix)), Shared]
 	public class CS4033CodeFix : CodeFixProvider
 	{
-		// TODO: Replace with actual diagnostic id that should trigger this fix.
 		public const string DiagnosticId = "CS4033";
 
 		private static readonly ImmutableHashSet<string> _UnitTestAttributeNames = ImmutableHashSet.Create(
@@ -50,7 +49,12 @@ namespace PhoenixToolkits.CodeAnalysis
 
 			if (!methodDecl.AttributeLists
 				.SelectMany(al => al.Attributes)
-				.Any(attr => _UnitTestAttributeNames.Contains(attr.ToString())))
+				.Any(attr => _UnitTestAttributeNames.Contains(
+					attr.Name is QualifiedNameSyntax q
+						? q.Right.ToString()
+						: attr.Name is IdentifierNameSyntax id
+							? id.ToString()
+							: attr.ToString())))
 				return;
 
 			// Register a code action that will invoke the fix.

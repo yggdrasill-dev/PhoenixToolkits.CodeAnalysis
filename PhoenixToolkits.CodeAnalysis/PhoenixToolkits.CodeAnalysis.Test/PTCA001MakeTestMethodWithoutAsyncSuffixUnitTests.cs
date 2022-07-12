@@ -1,8 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.CodeAnalysis.CSharp;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
+﻿using System.Threading.Tasks;
 using Microsoft.CodeAnalysis.Testing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using VerifyCS = PhoenixToolkits.CodeAnalysis.Test.CSharpCodeFixVerifier<
@@ -66,6 +62,29 @@ namespace PhoenixToolkits.CodeAnalysis.Test
 		}
 
 		[TestMethod]
+		public async Task TestMethodWithoutAsyncSuffix_MsTest_FullNamespace()
+		{
+			var code = @"
+				using System;
+				using System.Threading.Tasks;
+
+				class Program
+				{
+					[Microsoft.VisualStudio.TestTools.UnitTesting.TestMethod]
+					Task [|TestMethod1Async|]()
+					{
+						return Task.CompletedTask;
+					}
+				}";
+
+			await VerifyCS.VerifyAnalyzerAsync(
+				code,
+				DiagnosticResult.CompilerError("CS0234")
+					.WithSpan(7, 17, 7, 29)
+					.WithArguments("VisualStudio", "Microsoft"));
+		}
+
+		[TestMethod]
 		public async Task TestMethodWithoutAsyncSuffix_NUnit()
 		{
 			var code = @"
@@ -89,6 +108,29 @@ namespace PhoenixToolkits.CodeAnalysis.Test
 				DiagnosticResult.CompilerError("CS0246")
 					.WithSpan(7, 7, 7, 11)
 					.WithArguments("TestAttribute"));
+		}
+
+		[TestMethod]
+		public async Task TestMethodWithoutAsyncSuffix_NUnit_FullNamespace()
+		{
+			var code = @"
+				using System;
+				using System.Threading.Tasks;
+
+				class Program
+				{
+					[NUnit.Framework.Test]
+					Task [|TestMethod1Async|]()
+					{
+						return Task.CompletedTask;
+					}
+				}";
+
+			await VerifyCS.VerifyAnalyzerAsync(
+				code,
+				DiagnosticResult.CompilerError("CS0246")
+					.WithSpan(7, 7, 7, 12)
+					.WithArguments("NUnit"));
 		}
 
 		[TestMethod]

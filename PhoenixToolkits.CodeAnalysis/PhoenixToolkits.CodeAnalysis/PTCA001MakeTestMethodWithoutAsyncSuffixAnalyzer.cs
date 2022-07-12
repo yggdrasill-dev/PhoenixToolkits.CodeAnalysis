@@ -77,7 +77,12 @@ namespace PhoenixToolkits.CodeAnalysis
 
 			if (!methodDeclaration.AttributeLists
 				.SelectMany(al => al.Attributes)
-				.Any(attr => _UnitTestAttributeNames.Contains(attr.ToString())))
+				.Any(attr => _UnitTestAttributeNames.Contains(
+					attr.Name is QualifiedNameSyntax q
+						? q.Right.ToString()
+						: attr.Name is IdentifierNameSyntax id
+							? id.ToString()
+							: attr.ToString())))
 				return;
 
 			context.ReportDiagnostic(Diagnostic.Create(

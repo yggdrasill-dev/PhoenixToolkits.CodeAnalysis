@@ -22,7 +22,7 @@
 
 		<TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);_AddAnalyzersToOutput</TargetsForTfmSpecificContentInPackage>
 
-		<Version>0.0.4-beta</Version>
+		<Version>0.0.5</Version>
 
 		<Company>Valhalla</Company>
 	</PropertyGroup>

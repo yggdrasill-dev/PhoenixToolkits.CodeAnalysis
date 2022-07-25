@@ -14,8 +14,8 @@ using Microsoft.CodeAnalysis.Rename;
 
 namespace PhoenixToolkits.CodeAnalysis
 {
-	[ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(CS4033CodeFix)), Shared]
-	public class CS4033CodeFix : CodeFixProvider
+	[ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(CS4033MakeTestMethodWithoutAsyncSuffixCodeFixProvider)), Shared]
+	public class CS4033MakeTestMethodWithoutAsyncSuffixCodeFixProvider : CodeFixProvider
 	{
 		public const string DiagnosticId = "CS4033";
 
@@ -24,7 +24,7 @@ namespace PhoenixToolkits.CodeAnalysis
 			"Test");
 
 		public override sealed ImmutableArray<string> FixableDiagnosticIds
-					=> ImmutableArray.Create(DiagnosticId, "CS4032");
+			=> ImmutableArray.Create(DiagnosticId, "CS4032");
 
 		public override sealed FixAllProvider GetFixAllProvider()
 			=> WellKnownFixAllProviders.BatchFixer;
@@ -39,11 +39,7 @@ namespace PhoenixToolkits.CodeAnalysis
 			var diagnosticSpan = diagnostic.Location.SourceSpan;
 
 			// Find the type declaration identified by the diagnostic.
-			var declaration = root.FindToken(diagnosticSpan.Start)
-				.Parent
-				.AncestorsAndSelf()
-				.OfType<AwaitExpressionSyntax>()
-				.First();
+			var declaration = root.FindToken(diagnosticSpan.Start);
 
 			var methodDecl = FindMethod(declaration.Parent);
 
@@ -63,7 +59,7 @@ namespace PhoenixToolkits.CodeAnalysis
 					title: CodeFixResources.PTCA002CodeFixTitle,
 					createChangedSolution: c => MakeTestMethodAsynchronousAsync(
 						context.Document,
-						declaration,
+						methodDecl,
 						c),
 					equivalenceKey: nameof(CodeFixResources.PTCA001CodeFixTitle)),
 				diagnostic);
@@ -79,11 +75,9 @@ namespace PhoenixToolkits.CodeAnalysis
 
 		private async Task<Solution> MakeTestMethodAsynchronousAsync(
 			Document document,
-			AwaitExpressionSyntax awaitExpression,
+			MethodDeclarationSyntax methodDecl,
 			CancellationToken cancellationToken)
 		{
-			var methodDecl = FindMethod(awaitExpression.Parent);
-
 			var identifierToken = methodDecl.Identifier;
 			var methodName = identifierToken.Text;
 

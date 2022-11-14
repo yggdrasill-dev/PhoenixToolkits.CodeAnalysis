@@ -25,7 +25,7 @@ jobs:
         run: nuget restore
 
       - name: Build
-        run: "msbuild /p:BuildConfiguration=${{env.BuildConfiguration}}"
+        run: "msbuild /p:Configuration=${{env.BuildConfiguration}}"
 
       - name: Test
         run: dotnet test -c ${{env.BuildConfiguration}} --no-restore -l trx

@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 env:
-  BuildConfiguration: debug
+  BuildConfiguration: Release
 
 jobs:
   build:

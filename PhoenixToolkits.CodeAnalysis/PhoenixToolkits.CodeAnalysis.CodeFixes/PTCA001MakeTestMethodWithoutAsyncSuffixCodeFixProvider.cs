@@ -61,13 +61,12 @@ namespace PhoenixToolkits.CodeAnalysis
 			var semanticModel = await document.GetSemanticModelAsync(cancellationToken);
 			var methodSymbol = semanticModel.GetDeclaredSymbol(methodDecl, cancellationToken);
 
-			var originalSolution = document.Project.Solution;
-			var optionSet = originalSolution.Workspace.Options;
+			var renameOptions = new SymbolRenameOptions(true, false, true, false);
 			var newSolution = await Renamer.RenameSymbolAsync(
 				document.Project.Solution,
 				methodSymbol,
+				renameOptions,
 				newName,
-				optionSet,
 				cancellationToken).ConfigureAwait(false);
 
 			return newSolution;

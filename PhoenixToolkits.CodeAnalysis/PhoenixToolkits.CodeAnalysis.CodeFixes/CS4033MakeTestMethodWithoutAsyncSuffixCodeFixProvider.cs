@@ -122,13 +122,12 @@ namespace PhoenixToolkits.CodeAnalysis
 				.First();
 			var methodSymbol = semanticModel.GetDeclaredSymbol(findMethod, cancellationToken);
 
-			var originalSolution = newDocument.Project.Solution;
-			var optionSet = originalSolution.Workspace.Options;
+			var renameOptions = new SymbolRenameOptions(true, false, true, false);
 			var newSolution = await Renamer.RenameSymbolAsync(
 				newDocument.Project.Solution,
 				methodSymbol,
+				renameOptions,
 				newName,
-				optionSet,
 				cancellationToken).ConfigureAwait(false);
 
 			return newSolution;

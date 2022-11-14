@@ -57,5 +57,17 @@ namespace PhoenixToolkits.CodeAnalysis.Test
 			test.ExpectedDiagnostics.AddRange(expected);
 			await test.RunAsync(CancellationToken.None);
 		}
+
+		public static async Task VerifyCodeFixWithoutAnalyzerAsync(string source, DiagnosticResult[] expected, string fixedSource)
+		{
+			var test = new CS4033Test
+			{
+				TestCode = source,
+				FixedCode = fixedSource,
+			};
+
+			test.ExpectedDiagnostics.AddRange(expected);
+			await test.RunAsync(CancellationToken.None);
+		}
 	}
 }

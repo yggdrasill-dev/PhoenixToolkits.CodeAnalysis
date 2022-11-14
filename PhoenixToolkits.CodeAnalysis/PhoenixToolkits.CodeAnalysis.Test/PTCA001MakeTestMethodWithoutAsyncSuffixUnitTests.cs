@@ -134,6 +134,55 @@ namespace PhoenixToolkits.CodeAnalysis.Test
 		}
 
 		[TestMethod]
+		public async Task TestMethodWithoutAsyncSuffix_XUnit()
+		{
+			var code = @"
+				using System;
+				using System.Threading.Tasks;
+
+				class Program
+				{
+					[Fact]
+					Task [|TestMethod1Async|]()
+					{
+						return Task.CompletedTask;
+					}
+				}";
+
+			await VerifyCS.VerifyAnalyzerAsync(
+				code,
+				DiagnosticResult.CompilerError("CS0246")
+					.WithSpan(7, 7, 7, 11)
+					.WithArguments("Fact"),
+				DiagnosticResult.CompilerError("CS0246")
+					.WithSpan(7, 7, 7, 11)
+					.WithArguments("FactAttribute"));
+		}
+
+		[TestMethod]
+		public async Task TestMethodWithoutAsyncSuffix_XUnit_FullNamespace()
+		{
+			var code = @"
+				using System;
+				using System.Threading.Tasks;
+
+				class Program
+				{
+					[Xunit.Fact]
+					Task [|TestMethod1Async|]()
+					{
+						return Task.CompletedTask;
+					}
+				}";
+
+			await VerifyCS.VerifyAnalyzerAsync(
+				code,
+				DiagnosticResult.CompilerError("CS0246")
+					.WithSpan(7, 7, 7, 12)
+					.WithArguments("Xunit"));
+		}
+
+		[TestMethod]
 		public async Task TestMethodWithoutAsyncSuffix_NoDiagnostic()
 		{
 			var code = @"
@@ -265,6 +314,48 @@ namespace PhoenixToolkits.CodeAnalysis.Test
 					DiagnosticResult.CompilerError("CS0246")
 						.WithSpan(7, 7, 7, 11)
 						.WithArguments("TestAttribute")
+				},
+				expected);
+		}
+
+		[TestMethod]
+		public async Task XUnit_TestMethod_Diagnostic()
+		{
+			var code = @"
+				using System;
+				using System.Threading.Tasks;
+
+				class Program
+				{
+					[Fact]
+					Task [|TestMethod1Async|]()
+					{
+						return Task.CompletedTask;
+					}
+				}";
+
+			var expected = @"
+				using System;
+				using System.Threading.Tasks;
+
+				class Program
+				{
+					[Fact]
+					Task TestMethod1()
+					{
+						return Task.CompletedTask;
+					}
+				}";
+
+			await VerifyCS.VerifyCodeFixAsync(
+				code,
+				new[] {
+					DiagnosticResult.CompilerError("CS0246")
+						.WithSpan(7, 7, 7, 11)
+						.WithArguments("Fact"),
+					DiagnosticResult.CompilerError("CS0246")
+						.WithSpan(7, 7, 7, 11)
+						.WithArguments("FactAttribute")
 				},
 				expected);
 		}

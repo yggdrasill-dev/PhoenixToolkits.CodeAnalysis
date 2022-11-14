@@ -21,7 +21,8 @@ namespace PhoenixToolkits.CodeAnalysis
 
 		private static readonly ImmutableHashSet<string> _UnitTestAttributeNames = ImmutableHashSet.Create(
 			"TestMethod",
-			"Test");
+			"Test",
+			"Fact");
 
 		public override sealed ImmutableArray<string> FixableDiagnosticIds
 			=> ImmutableArray.Create(DiagnosticId, "CS4032");
@@ -66,12 +67,7 @@ namespace PhoenixToolkits.CodeAnalysis
 		}
 
 		private MethodDeclarationSyntax FindMethod(SyntaxNode node)
-		{
-			if (node is MethodDeclarationSyntax)
-				return (MethodDeclarationSyntax)node;
-
-			return FindMethod(node.Parent);
-		}
+			=> node is MethodDeclarationSyntax syntax ? syntax : FindMethod(node.Parent);
 
 		private async Task<Solution> MakeTestMethodAsynchronousAsync(
 			Document document,

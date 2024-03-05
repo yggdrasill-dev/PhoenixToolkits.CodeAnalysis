@@ -77,5 +77,14 @@ namespace PhoenixToolkits.CodeAnalysis {
                 return ResourceManager.GetString("PTCA002CodeFixTitle", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   查詢類似 Add &quot;using {0};&quot; 的當地語系化字串。
+        /// </summary>
+        internal static string UsingNamespaceRefactoringTitle {
+            get {
+                return ResourceManager.GetString("UsingNamespaceRefactoringTitle", resourceCulture);
+            }
+        }
     }
 }

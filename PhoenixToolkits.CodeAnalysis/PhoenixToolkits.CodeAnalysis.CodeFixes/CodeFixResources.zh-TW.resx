@@ -123,4 +123,7 @@
   <data name="PTCA002CodeFixTitle" xml:space="preserve">
     <value>使單元測試方法非同步</value>
   </data>
+  <data name="UsingNamespaceRefactoringTitle" xml:space="preserve">
+    <value>新增 "using {0};"</value>
+  </data>
 </root>

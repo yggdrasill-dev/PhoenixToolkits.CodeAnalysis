@@ -5,6 +5,7 @@
 		<IsPackable>false</IsPackable>
 		<RootNamespace>PhoenixToolkits.CodeAnalysis</RootNamespace>
 		<GeneratedMSBuildEditorConfigFile>$(IntermediateOutputPath)\$(MSBuildProjectName).GeneratedMSBuildEditorConfig.editorconfig</GeneratedMSBuildEditorConfigFile>
+		<SqlQueryToolsConnectionString />
 	</PropertyGroup>
 
 	<ItemGroup>

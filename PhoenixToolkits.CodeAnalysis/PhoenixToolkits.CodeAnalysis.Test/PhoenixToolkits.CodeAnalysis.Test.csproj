@@ -29,8 +29,4 @@
     <EditorConfigFiles Remove="D:\Users\Phoenix\source\repos\PhoenixToolkits.CodeAnalysis\PhoenixToolkits.CodeAnalysis\PhoenixToolkits.CodeAnalysis.Test\.editorconfig" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Include="D:\Users\Phoenix\source\repos\PhoenixToolkits.CodeAnalysis\PhoenixToolkits.CodeAnalysis\PhoenixToolkits.CodeAnalysis.Test\.editorconfig" />
-  </ItemGroup>
-
 </Project>

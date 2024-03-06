@@ -37,10 +37,10 @@ namespace PhoenixToolkits.CodeAnalysis
 			{
 				var symbolNamespace = symbolInfo.Symbol.ContainingNamespace.ToDisplayString();
 
-				if (compilation.Usings.All(s => s.Name.GetText().ToString() != symbolNamespace))
+				if (!compilation.Usings.Any(s => s.Name.GetText().ToString() == symbolNamespace))
 					context.RegisterRefactoring(CodeAction.Create(
 						title: string.Format(CodeFixResources.UsingNamespaceRefactoringTitle, symbolNamespace),
-						createChangedDocument: ct => UseNamespaceAsync(
+						createChangedDocument: ct => AddUsingNamespaceAsync(
 							context.Document,
 							identifierName,
 							qualifiedName,
@@ -58,10 +58,10 @@ namespace PhoenixToolkits.CodeAnalysis
 
 				var symbolNamespace = symbolInfo.Symbol.ContainingNamespace.ToDisplayString();
 
-				if (compilation.Usings.All(s => s.Name.GetText().ToString() != symbolNamespace))
+				if (!compilation.Usings.Any(s => s.Name.GetText().ToString() == symbolNamespace))
 					context.RegisterRefactoring(CodeAction.Create(
 						title: string.Format(CodeFixResources.UsingNamespaceRefactoringTitle, symbolNamespace),
-						createChangedDocument: ct => UseNamespaceAsync(
+						createChangedDocument: ct => AddUsingNamespaceAsync(
 							context.Document,
 							identifierName,
 							memberAccessExpression,
@@ -70,7 +70,7 @@ namespace PhoenixToolkits.CodeAnalysis
 			}
 		}
 
-		private async Task<Document> UseNamespaceAsync(
+		private async Task<Document> AddUsingNamespaceAsync(
 			Document document,
 			IdentifierNameSyntax identifierName,
 			SyntaxNode targetNode,

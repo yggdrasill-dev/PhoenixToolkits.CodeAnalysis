@@ -13,264 +13,275 @@ public class MakeTestMethodWithoutAsyncSuffixUnitTest
 	[TestMethod]
 	public async Task Method_Not_AsyncFuntion()
 	{
-		var code = @"
-				using System;
-				using System.Threading.Tasks;
+		var code = """
+			using System;
+			using System.Threading.Tasks;
 
-				class Program
+			class Program
+			{
+				[TestMethod]
+				void TestMethod1Async()
 				{
-					[TestMethod]
-					void TestMethod1Async()
-					{
-					}
-				}";
+				}
+			}
+			""";
 
 		await VerifyCS.VerifyAnalyzerAsync(
 			code,
 			DiagnosticResult.CompilerError("CS0246")
-				.WithSpan(7, 7, 7, 17)
+				.WithSpan(6, 3, 6, 13)
 				.WithArguments("TestMethod"),
 			DiagnosticResult.CompilerError("CS0246")
-				.WithSpan(7, 7, 7, 17)
+				.WithSpan(6, 3, 6, 13)
 				.WithArguments("TestMethodAttribute"));
 	}
 
 	[TestMethod]
 	public async Task TestMethodWithoutAsyncSuffix_MsTest()
 	{
-		var code = @"
-				using System;
-				using System.Threading.Tasks;
+		var code = """
+			using System;
+			using System.Threading.Tasks;
 
-				class Program
+			class Program
+			{
+				[TestMethod]
+				Task [|TestMethod1Async|]()
 				{
-					[TestMethod]
-					Task [|TestMethod1Async|]()
-					{
-						return Task.CompletedTask;
-					}
-				}";
+					return Task.CompletedTask;
+				}
+			}
+			""";
 
 		await VerifyCS.VerifyAnalyzerAsync(
 			code,
 			DiagnosticResult.CompilerError("CS0246")
-				.WithSpan(7, 7, 7, 17)
+				.WithSpan(6, 3, 6, 13)
 				.WithArguments("TestMethod"),
 			DiagnosticResult.CompilerError("CS0246")
-				.WithSpan(7, 7, 7, 17)
+				.WithSpan(6, 3, 6, 13)
 				.WithArguments("TestMethodAttribute"));
 	}
 
 	[TestMethod]
 	public async Task TestMethodWithoutAsyncSuffix_MsTest_FullNamespace()
 	{
-		var code = @"
-				using System;
-				using System.Threading.Tasks;
+		var code = """
+			using System;
+			using System.Threading.Tasks;
 
-				class Program
+			class Program
+			{
+				[Microsoft.VisualStudio.TestTools.UnitTesting.TestMethod]
+				Task [|TestMethod1Async|]()
 				{
-					[Microsoft.VisualStudio.TestTools.UnitTesting.TestMethod]
-					Task [|TestMethod1Async|]()
-					{
-						return Task.CompletedTask;
-					}
-				}";
+					return Task.CompletedTask;
+				}
+			}
+			""";
 
 		await VerifyCS.VerifyAnalyzerAsync(
 			code,
 			DiagnosticResult.CompilerError("CS0234")
-				.WithSpan(7, 17, 7, 29)
+				.WithSpan(6, 13, 6, 25)
 				.WithArguments("VisualStudio", "Microsoft"));
 	}
 
 	[TestMethod]
 	public async Task TestMethodWithoutAsyncSuffix_NUnit()
 	{
-		var code = @"
-				using System;
-				using System.Threading.Tasks;
+		var code = """
+			using System;
+			using System.Threading.Tasks;
 
-				class Program
+			class Program
+			{
+				[Test]
+				Task [|TestMethod1Async|]()
 				{
-					[Test]
-					Task [|TestMethod1Async|]()
-					{
-						return Task.CompletedTask;
-					}
-				}";
+					return Task.CompletedTask;
+				}
+			}
+			""";
 
 		await VerifyCS.VerifyAnalyzerAsync(
 			code,
 			DiagnosticResult.CompilerError("CS0246")
-				.WithSpan(7, 7, 7, 11)
+				.WithSpan(6, 3, 6, 7)
 				.WithArguments("Test"),
 			DiagnosticResult.CompilerError("CS0246")
-				.WithSpan(7, 7, 7, 11)
+				.WithSpan(6, 3, 6, 7)
 				.WithArguments("TestAttribute"));
 	}
 
 	[TestMethod]
 	public async Task TestMethodWithoutAsyncSuffix_NUnit_FullNamespace()
 	{
-		var code = @"
-				using System;
-				using System.Threading.Tasks;
+		var code = """
+			using System;
+			using System.Threading.Tasks;
 
-				class Program
+			class Program
+			{
+				[NUnit.Framework.Test]
+				Task [|TestMethod1Async|]()
 				{
-					[NUnit.Framework.Test]
-					Task [|TestMethod1Async|]()
-					{
-						return Task.CompletedTask;
-					}
-				}";
+					return Task.CompletedTask;
+				}
+			}
+			""";
 
 		await VerifyCS.VerifyAnalyzerAsync(
 			code,
 			DiagnosticResult.CompilerError("CS0246")
-				.WithSpan(7, 7, 7, 12)
+				.WithSpan(6, 3, 6, 8)
 				.WithArguments("NUnit"));
 	}
 
 	[TestMethod]
 	public async Task TestMethodWithoutAsyncSuffix_XUnit()
 	{
-		var code = @"
-				using System;
-				using System.Threading.Tasks;
+		var code = """
+			using System;
+			using System.Threading.Tasks;
 
-				class Program
+			class Program
+			{
+				[Fact]
+				Task [|TestMethod1Async|]()
 				{
-					[Fact]
-					Task [|TestMethod1Async|]()
-					{
-						return Task.CompletedTask;
-					}
-				}";
+					return Task.CompletedTask;
+				}
+			}
+			""";
 
 		await VerifyCS.VerifyAnalyzerAsync(
 			code,
 			DiagnosticResult.CompilerError("CS0246")
-				.WithSpan(7, 7, 7, 11)
+				.WithSpan(6, 3, 6, 7)
 				.WithArguments("Fact"),
 			DiagnosticResult.CompilerError("CS0246")
-				.WithSpan(7, 7, 7, 11)
+				.WithSpan(6, 3, 6, 7)
 				.WithArguments("FactAttribute"));
 	}
 
 	[TestMethod]
 	public async Task TestMethodWithoutAsyncSuffix_XUnit_FullNamespace()
 	{
-		var code = @"
-				using System;
-				using System.Threading.Tasks;
+		var code = """
+			using System;
+			using System.Threading.Tasks;
 
-				class Program
+			class Program
+			{
+				[Xunit.Fact]
+				Task [|TestMethod1Async|]()
 				{
-					[Xunit.Fact]
-					Task [|TestMethod1Async|]()
-					{
-						return Task.CompletedTask;
-					}
-				}";
+					return Task.CompletedTask;
+				}
+			}
+			""";
 
 		await VerifyCS.VerifyAnalyzerAsync(
 			code,
 			DiagnosticResult.CompilerError("CS0246")
-				.WithSpan(7, 7, 7, 12)
+				.WithSpan(6, 3, 6, 8)
 				.WithArguments("Xunit"));
 	}
 
 	[TestMethod]
 	public async Task TestMethodWithoutAsyncSuffix_NoDiagnostic()
 	{
-		var code = @"
-				using System;
-				using System.Threading.Tasks;
+		var code = """
+			using System;
+			using System.Threading.Tasks;
 
-				class Program
+			class Program
+			{
+				[TestMethod]
+				Task TestMethod1()
 				{
-					[TestMethod]
-					Task TestMethod1()
-					{
-						return Task.CompletedTask;
-					}
-				}";
+					return Task.CompletedTask;
+				}
+			}
+			""";
 
 		await VerifyCS.VerifyAnalyzerAsync(
 			code,
 			DiagnosticResult.CompilerError("CS0246")
-				.WithSpan(7, 7, 7, 17)
+				.WithSpan(6, 3, 6, 13)
 				.WithArguments("TestMethod"),
 			DiagnosticResult.CompilerError("CS0246")
-				.WithSpan(7, 7, 7, 17)
+				.WithSpan(6, 3, 6, 13)
 				.WithArguments("TestMethodAttribute"));
 	}
 
 	[TestMethod]
 	public async Task TestMethodWithoutAsyncSuffix_Static_Method_NoDiagnostic()
 	{
-		var code = @"
-				using System;
-				using System.Threading.Tasks;
+		var code = """
+			using System;
+			using System.Threading.Tasks;
 
-				class Program
+			class Program
+			{
+				[TestMethod]
+				static Task TestMethod1Async()
 				{
-					[TestMethod]
-					static Task TestMethod1Async()
-					{
-						return Task.CompletedTask;
-					}
-				}";
+					return Task.CompletedTask;
+				}
+			}
+			""";
 
 		await VerifyCS.VerifyAnalyzerAsync(
 			code,
 			DiagnosticResult.CompilerError("CS0246")
-				.WithSpan(7, 7, 7, 17)
+				.WithSpan(6, 3, 6, 13)
 				.WithArguments("TestMethod"),
 			DiagnosticResult.CompilerError("CS0246")
-				.WithSpan(7, 7, 7, 17)
+				.WithSpan(6, 3, 6, 13)
 				.WithArguments("TestMethodAttribute"));
 	}
 
 	[TestMethod]
 	public async Task MsTest_TestMethod_Diagnostic()
 	{
-		var code = @"
-				using System;
-				using System.Threading.Tasks;
+		var code = """
+			using System;
+			using System.Threading.Tasks;
 
-				class Program
+			class Program
+			{
+				[TestMethod]
+				Task [|TestMethod1Async|]()
 				{
-					[TestMethod]
-					Task [|TestMethod1Async|]()
-					{
-						return Task.CompletedTask;
-					}
-				}";
+					return Task.CompletedTask;
+				}
+			}
+			""";
 
-		var expected = @"
-				using System;
-				using System.Threading.Tasks;
+		var expected = """
+			using System;
+			using System.Threading.Tasks;
 
-				class Program
+			class Program
+			{
+				[TestMethod]
+				Task TestMethod1()
 				{
-					[TestMethod]
-					Task TestMethod1()
-					{
-						return Task.CompletedTask;
-					}
-				}";
+					return Task.CompletedTask;
+				}
+			}
+			""";
 
 		await VerifyCS.VerifyCodeFixAsync(
 			code,
 			[
 				DiagnosticResult.CompilerError("CS0246")
-					.WithSpan(7, 7, 7, 17)
+					.WithSpan(6, 3, 6, 13)
 					.WithArguments("TestMethod"),
 				DiagnosticResult.CompilerError("CS0246")
-					.WithSpan(7, 7, 7, 17)
+					.WithSpan(6, 3, 6, 13)
 					.WithArguments("TestMethodAttribute")
 			],
 			expected);
@@ -279,40 +290,42 @@ public class MakeTestMethodWithoutAsyncSuffixUnitTest
 	[TestMethod]
 	public async Task NUnit_TestMethod_Diagnostic()
 	{
-		var code = @"
-				using System;
-				using System.Threading.Tasks;
+		var code = """
+			using System;
+			using System.Threading.Tasks;
 
-				class Program
+			class Program
+			{
+				[Test]
+				Task [|TestMethod1Async|]()
 				{
-					[Test]
-					Task [|TestMethod1Async|]()
-					{
-						return Task.CompletedTask;
-					}
-				}";
+					return Task.CompletedTask;
+				}
+			}
+			""";
 
-		var expected = @"
-				using System;
-				using System.Threading.Tasks;
+		var expected = """
+			using System;
+			using System.Threading.Tasks;
 
-				class Program
+			class Program
+			{
+				[Test]
+				Task TestMethod1()
 				{
-					[Test]
-					Task TestMethod1()
-					{
-						return Task.CompletedTask;
-					}
-				}";
+					return Task.CompletedTask;
+				}
+			}
+			""";
 
 		await VerifyCS.VerifyCodeFixAsync(
 			code,
 			[
 				DiagnosticResult.CompilerError("CS0246")
-					.WithSpan(7, 7, 7, 11)
+					.WithSpan(6, 3, 6, 7)
 					.WithArguments("Test"),
 				DiagnosticResult.CompilerError("CS0246")
-					.WithSpan(7, 7, 7, 11)
+					.WithSpan(6, 3, 6, 7)
 					.WithArguments("TestAttribute")
 			],
 			expected);
@@ -321,40 +334,42 @@ public class MakeTestMethodWithoutAsyncSuffixUnitTest
 	[TestMethod]
 	public async Task XUnit_TestMethod_Diagnostic()
 	{
-		var code = @"
-				using System;
-				using System.Threading.Tasks;
+		var code = """
+			using System;
+			using System.Threading.Tasks;
 
-				class Program
+			class Program
+			{
+				[Fact]
+				Task [|TestMethod1Async|]()
 				{
-					[Fact]
-					Task [|TestMethod1Async|]()
-					{
-						return Task.CompletedTask;
-					}
-				}";
+					return Task.CompletedTask;
+				}
+			}
+			""";
 
-		var expected = @"
-				using System;
-				using System.Threading.Tasks;
+		var expected = """
+			using System;
+			using System.Threading.Tasks;
 
-				class Program
+			class Program
+			{
+				[Fact]
+				Task TestMethod1()
 				{
-					[Fact]
-					Task TestMethod1()
-					{
-						return Task.CompletedTask;
-					}
-				}";
+					return Task.CompletedTask;
+				}
+			}
+			""";
 
 		await VerifyCS.VerifyCodeFixAsync(
 			code,
 			[
 				DiagnosticResult.CompilerError("CS0246")
-					.WithSpan(7, 7, 7, 11)
+					.WithSpan(6, 3, 6, 7)
 					.WithArguments("Fact"),
 				DiagnosticResult.CompilerError("CS0246")
-					.WithSpan(7, 7, 7, 11)
+					.WithSpan(6, 3, 6, 7)
 					.WithArguments("FactAttribute")
 			],
 			expected);

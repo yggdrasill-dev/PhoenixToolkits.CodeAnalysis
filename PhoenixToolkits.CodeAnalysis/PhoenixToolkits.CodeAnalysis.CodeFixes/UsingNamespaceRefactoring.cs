@@ -19,16 +19,16 @@ namespace PhoenixToolkits.CodeAnalysis
 				context.CancellationToken).ConfigureAwait(false);
 
 			var node = root.FindNode(context.Span);
-			var model = await context.Document.GetSemanticModelAsync(
+			var semanticModel = await context.Document.GetSemanticModelAsync(
 				context.CancellationToken).ConfigureAwait(false);
 
-			if (model is null || !(root is CompilationUnitSyntax compilation))
+			if (semanticModel is null || !(root is CompilationUnitSyntax compilation))
 				return;
 
 			if (!(node is IdentifierNameSyntax identifierName) || identifierName.Parent is null)
 				return;
 
-			var symbolInfo = model.GetSymbolInfo(identifierName);
+			var symbolInfo = semanticModel.GetSymbolInfo(identifierName);
 
 			if (symbolInfo.Symbol is null || symbolInfo.Symbol.Kind != SymbolKind.NamedType)
 				return;
@@ -51,7 +51,7 @@ namespace PhoenixToolkits.CodeAnalysis
 			if (identifierName.Parent is MemberAccessExpressionSyntax memberAccessExpression
 				&& memberAccessExpression.Expression is IdentifierNameSyntax)
 			{
-				var expressionSymbolInfo = model.GetSymbolInfo(memberAccessExpression.Expression);
+				var expressionSymbolInfo = semanticModel.GetSymbolInfo(memberAccessExpression.Expression);
 
 				if (expressionSymbolInfo.Symbol is null || expressionSymbolInfo.Symbol.Kind != SymbolKind.Namespace)
 					return;

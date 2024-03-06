@@ -16,20 +16,24 @@ public class CS4033MakeTestMethodWithoutAsyncSuffixCodeFixProviderTests
 	{
 		var regex = new Regex(@"^\t{4}", RegexOptions.Multiline);
 
-		var code = regex.Replace(@"
+		var code = regex.Replace(
+			"""
 				using System;
 				using System.Threading.Tasks;
 
 				class Program
 				{
-				    [Test]
-				    void TestMethod1()
-				    {
-				        [|await Task.CompletedTask|];
+					[Test]
+					void TestMethod1()
+					{
+						[|await Task.CompletedTask|];
 					}
-				}", string.Empty).Replace("\t", "    ");
+				}
+				""",
+			string.Empty).Replace("\t", "    ");
 
-		var expected = regex.Replace(@"
+		var expected = regex.Replace(
+			"""
 				using System;
 				using System.Threading.Tasks;
 
@@ -40,16 +44,17 @@ public class CS4033MakeTestMethodWithoutAsyncSuffixCodeFixProviderTests
 					{
 						await Task.CompletedTask;
 					}
-				}", string.Empty).Replace("\t", "    ");
+				}
+				""", string.Empty).Replace("\t", "    ");
 
 		await VerifyCS.VerifyCodeFixWithoutAnalyzerAsync(
 			code,
 			[
 				DiagnosticResult.CompilerError("CS0246")
-					.WithSpan(7, 6, 7, 10)
+					.WithSpan(6, 6, 6, 10)
 					.WithArguments("Test"),
 				DiagnosticResult.CompilerError("CS0246")
-					.WithSpan(7, 6, 7, 10)
+					.WithSpan(6, 6, 6, 10)
 					.WithArguments("TestAttribute")
 			],
 			expected);
@@ -60,20 +65,24 @@ public class CS4033MakeTestMethodWithoutAsyncSuffixCodeFixProviderTests
 	{
 		var regex = new Regex(@"^\t{4}", RegexOptions.Multiline);
 
-		var code = regex.Replace(@"
+		var code = regex.Replace(
+			"""
 				using System;
 				using System.Threading.Tasks;
 
 				class Program
 				{
-				    [TestMethod]
-				    void TestMethod1()
-				    {
-				        [|await Task.CompletedTask|];
+					[TestMethod]
+					void TestMethod1()
+					{
+						[|await Task.CompletedTask|];
 					}
-				}", string.Empty).Replace("\t", "    ");
+				}
+				""",
+			string.Empty).Replace("\t", "    ");
 
-		var expected = regex.Replace(@"
+		var expected = regex.Replace(
+			"""
 				using System;
 				using System.Threading.Tasks;
 
@@ -84,16 +93,18 @@ public class CS4033MakeTestMethodWithoutAsyncSuffixCodeFixProviderTests
 					{
 						await Task.CompletedTask;
 					}
-				}", string.Empty).Replace("\t", "    ");
+				}
+				""",
+			string.Empty).Replace("\t", "    ");
 
 		await VerifyCS.VerifyCodeFixWithoutAnalyzerAsync(
 			code,
 			[
 				DiagnosticResult.CompilerError("CS0246")
-					.WithSpan(7, 6, 7, 16)
+					.WithSpan(6, 6, 6, 16)
 					.WithArguments("TestMethod"),
 				DiagnosticResult.CompilerError("CS0246")
-					.WithSpan(7, 6, 7, 16)
+					.WithSpan(6, 6, 6, 16)
 					.WithArguments("TestMethodAttribute")
 			],
 			expected);
@@ -104,20 +115,24 @@ public class CS4033MakeTestMethodWithoutAsyncSuffixCodeFixProviderTests
 	{
 		var regex = new Regex(@"^\t{4}", RegexOptions.Multiline);
 
-		var code = regex.Replace(@"
+		var code = regex.Replace(
+			"""
 				using System;
 				using System.Threading.Tasks;
 
 				class Program
 				{
-				    [Fact]
-				    void TestMethod1()
-				    {
-				        [|await Task.CompletedTask|];
+					[Fact]
+					void TestMethod1()
+					{
+						[|await Task.CompletedTask|];
 					}
-				}", string.Empty).Replace("\t", "    ");
+				}
+				""",
+			string.Empty).Replace("\t", "    ");
 
-		var expected = regex.Replace(@"
+		var expected = regex.Replace(
+			"""
 				using System;
 				using System.Threading.Tasks;
 
@@ -128,16 +143,18 @@ public class CS4033MakeTestMethodWithoutAsyncSuffixCodeFixProviderTests
 					{
 						await Task.CompletedTask;
 					}
-				}", string.Empty).Replace("\t", "    ");
+				}
+				""",
+			string.Empty).Replace("\t", "    ");
 
 		await VerifyCS.VerifyCodeFixWithoutAnalyzerAsync(
 			code,
 			[
 				DiagnosticResult.CompilerError("CS0246")
-					.WithSpan(7, 6, 7, 10)
+					.WithSpan(6, 6, 6, 10)
 					.WithArguments("Fact"),
 				DiagnosticResult.CompilerError("CS0246")
-					.WithSpan(7, 6, 7, 10)
+					.WithSpan(6, 6, 6, 10)
 					.WithArguments("FactAttribute")
 			],
 			expected);

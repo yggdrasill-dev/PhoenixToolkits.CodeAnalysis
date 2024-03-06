@@ -6,17 +6,17 @@ using VerifyCS = PhoenixToolkits.CodeAnalysis.Test.CSharpCodeFixVerifier<
 	PhoenixToolkits.CodeAnalysis.PTCA001MakeTestMethodWithoutAsyncSuffixAnalyzer,
 	PhoenixToolkits.CodeAnalysis.CS4033MakeTestMethodWithoutAsyncSuffixCodeFixProvider>;
 
-namespace PhoenixToolkits.CodeAnalysis.Test
-{
-	[TestClass]
-	public class CS4033MakeTestMethodWithoutAsyncSuffixCodeFixProviderTests
-	{
-		[TestMethod]
-		public async Task Await_Diagnostic_NUnit()
-		{
-			var regex = new Regex(@"^\t{4}", RegexOptions.Multiline);
+namespace PhoenixToolkits.CodeAnalysis.Test;
 
-			var code = regex.Replace(@"
+[TestClass]
+public class CS4033MakeTestMethodWithoutAsyncSuffixCodeFixProviderTests
+{
+	[TestMethod]
+	public async Task Await_Diagnostic_NUnit()
+	{
+		var regex = new Regex(@"^\t{4}", RegexOptions.Multiline);
+
+		var code = regex.Replace(@"
 				using System;
 				using System.Threading.Tasks;
 
@@ -29,7 +29,7 @@ namespace PhoenixToolkits.CodeAnalysis.Test
 					}
 				}", string.Empty).Replace("\t", "    ");
 
-			var expected = regex.Replace(@"
+		var expected = regex.Replace(@"
 				using System;
 				using System.Threading.Tasks;
 
@@ -42,25 +42,25 @@ namespace PhoenixToolkits.CodeAnalysis.Test
 					}
 				}", string.Empty).Replace("\t", "    ");
 
-			await VerifyCS.VerifyCodeFixWithoutAnalyzerAsync(
-				code,
-				new[] {
-					DiagnosticResult.CompilerError("CS0246")
-						.WithSpan(7, 6, 7, 10)
-						.WithArguments("Test"),
-					DiagnosticResult.CompilerError("CS0246")
-						.WithSpan(7, 6, 7, 10)
-						.WithArguments("TestAttribute")
-				},
-				expected);
-		}
+		await VerifyCS.VerifyCodeFixWithoutAnalyzerAsync(
+			code,
+			[
+				DiagnosticResult.CompilerError("CS0246")
+					.WithSpan(7, 6, 7, 10)
+					.WithArguments("Test"),
+				DiagnosticResult.CompilerError("CS0246")
+					.WithSpan(7, 6, 7, 10)
+					.WithArguments("TestAttribute")
+			],
+			expected);
+	}
 
-		[TestMethod]
-		public async Task Await_Diagnostic_MsTest()
-		{
-			var regex = new Regex(@"^\t{4}", RegexOptions.Multiline);
+	[TestMethod]
+	public async Task Await_Diagnostic_MsTest()
+	{
+		var regex = new Regex(@"^\t{4}", RegexOptions.Multiline);
 
-			var code = regex.Replace(@"
+		var code = regex.Replace(@"
 				using System;
 				using System.Threading.Tasks;
 
@@ -73,7 +73,7 @@ namespace PhoenixToolkits.CodeAnalysis.Test
 					}
 				}", string.Empty).Replace("\t", "    ");
 
-			var expected = regex.Replace(@"
+		var expected = regex.Replace(@"
 				using System;
 				using System.Threading.Tasks;
 
@@ -86,25 +86,25 @@ namespace PhoenixToolkits.CodeAnalysis.Test
 					}
 				}", string.Empty).Replace("\t", "    ");
 
-			await VerifyCS.VerifyCodeFixWithoutAnalyzerAsync(
-				code,
-				new[] {
-					DiagnosticResult.CompilerError("CS0246")
-						.WithSpan(7, 6, 7, 16)
-						.WithArguments("TestMethod"),
-					DiagnosticResult.CompilerError("CS0246")
-						.WithSpan(7, 6, 7, 16)
-						.WithArguments("TestMethodAttribute")
-				},
-				expected);
-		}
+		await VerifyCS.VerifyCodeFixWithoutAnalyzerAsync(
+			code,
+			[
+				DiagnosticResult.CompilerError("CS0246")
+					.WithSpan(7, 6, 7, 16)
+					.WithArguments("TestMethod"),
+				DiagnosticResult.CompilerError("CS0246")
+					.WithSpan(7, 6, 7, 16)
+					.WithArguments("TestMethodAttribute")
+			],
+			expected);
+	}
 
-		[TestMethod]
-		public async Task Await_Diagnostic_XUnit()
-		{
-			var regex = new Regex(@"^\t{4}", RegexOptions.Multiline);
+	[TestMethod]
+	public async Task Await_Diagnostic_XUnit()
+	{
+		var regex = new Regex(@"^\t{4}", RegexOptions.Multiline);
 
-			var code = regex.Replace(@"
+		var code = regex.Replace(@"
 				using System;
 				using System.Threading.Tasks;
 
@@ -117,7 +117,7 @@ namespace PhoenixToolkits.CodeAnalysis.Test
 					}
 				}", string.Empty).Replace("\t", "    ");
 
-			var expected = regex.Replace(@"
+		var expected = regex.Replace(@"
 				using System;
 				using System.Threading.Tasks;
 
@@ -130,17 +130,16 @@ namespace PhoenixToolkits.CodeAnalysis.Test
 					}
 				}", string.Empty).Replace("\t", "    ");
 
-			await VerifyCS.VerifyCodeFixWithoutAnalyzerAsync(
-				code,
-				new[] {
-					DiagnosticResult.CompilerError("CS0246")
-						.WithSpan(7, 6, 7, 10)
-						.WithArguments("Fact"),
-					DiagnosticResult.CompilerError("CS0246")
-						.WithSpan(7, 6, 7, 10)
-						.WithArguments("FactAttribute")
-				},
-				expected);
-		}
+		await VerifyCS.VerifyCodeFixWithoutAnalyzerAsync(
+			code,
+			[
+				DiagnosticResult.CompilerError("CS0246")
+					.WithSpan(7, 6, 7, 10)
+					.WithArguments("Fact"),
+				DiagnosticResult.CompilerError("CS0246")
+					.WithSpan(7, 6, 7, 10)
+					.WithArguments("FactAttribute")
+			],
+			expected);
 	}
 }

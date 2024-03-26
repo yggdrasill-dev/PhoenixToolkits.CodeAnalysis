@@ -21,7 +21,7 @@
 		<DevelopmentDependency>true</DevelopmentDependency>
 		<NoPackageAnalysis>true</NoPackageAnalysis>
 		<TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);_AddAnalyzersToOutput</TargetsForTfmSpecificContentInPackage>
-		<Version>0.0.9</Version>
+		<Version>0.0.10</Version>
 		<Company>Valhalla</Company>
 		<SqlQueryToolsConnectionString />
 	</PropertyGroup>

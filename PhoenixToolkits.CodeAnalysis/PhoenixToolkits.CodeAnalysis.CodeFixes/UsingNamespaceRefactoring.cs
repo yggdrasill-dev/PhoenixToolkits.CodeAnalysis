@@ -49,7 +49,8 @@ namespace PhoenixToolkits.CodeAnalysis
 			}
 
 			if (node.Parent is MemberAccessExpressionSyntax memberAccessExpression
-				&& memberAccessExpression.Expression is IdentifierNameSyntax)
+				&& (memberAccessExpression.Expression is IdentifierNameSyntax
+					|| memberAccessExpression.Expression is MemberAccessExpressionSyntax))
 			{
 				var expressionSymbolInfo = semanticModel.GetSymbolInfo(memberAccessExpression.Expression);
 

@@ -44,7 +44,7 @@ namespace PhoenixToolkits.CodeAnalysis
 							context.Document,
 							node,
 							qualifiedName,
-							qualifiedName.Left,
+							SyntaxFactory.ParseName(symbolNamespace),
 							ct)));
 			}
 

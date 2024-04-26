@@ -25,15 +25,15 @@ namespace PhoenixToolkits.CodeAnalysis
 			if (semanticModel is null || !(root is CompilationUnitSyntax compilation))
 				return;
 
-			if (!(node is IdentifierNameSyntax identifierName) || identifierName.Parent is null)
+			if (node.Parent is null)
 				return;
 
-			var symbolInfo = semanticModel.GetSymbolInfo(identifierName);
+			var symbolInfo = semanticModel.GetSymbolInfo(node);
 
 			if (symbolInfo.Symbol is null || symbolInfo.Symbol.Kind != SymbolKind.NamedType)
 				return;
 
-			if (identifierName.Parent is QualifiedNameSyntax qualifiedName)
+			if (node.Parent is QualifiedNameSyntax qualifiedName)
 			{
 				var symbolNamespace = symbolInfo.Symbol.ContainingNamespace.ToDisplayString();
 
@@ -42,13 +42,13 @@ namespace PhoenixToolkits.CodeAnalysis
 						title: string.Format(CodeFixResources.UsingNamespaceRefactoringTitle, symbolNamespace),
 						createChangedDocument: ct => AddUsingNamespaceAsync(
 							context.Document,
-							identifierName,
+							node,
 							qualifiedName,
 							qualifiedName.Left,
 							ct)));
 			}
 
-			if (identifierName.Parent is MemberAccessExpressionSyntax memberAccessExpression
+			if (node.Parent is MemberAccessExpressionSyntax memberAccessExpression
 				&& memberAccessExpression.Expression is IdentifierNameSyntax)
 			{
 				var expressionSymbolInfo = semanticModel.GetSymbolInfo(memberAccessExpression.Expression);
@@ -63,7 +63,7 @@ namespace PhoenixToolkits.CodeAnalysis
 						title: string.Format(CodeFixResources.UsingNamespaceRefactoringTitle, symbolNamespace),
 						createChangedDocument: ct => AddUsingNamespaceAsync(
 							context.Document,
-							identifierName,
+							node,
 							memberAccessExpression,
 							SyntaxFactory.ParseName(symbolNamespace),
 							ct)));
@@ -72,16 +72,16 @@ namespace PhoenixToolkits.CodeAnalysis
 
 		private async Task<Document> AddUsingNamespaceAsync(
 			Document document,
-			IdentifierNameSyntax identifierName,
-			SyntaxNode targetNode,
+			SyntaxNode currentNode,
+			SyntaxNode namespaceNode,
 			NameSyntax namespaceSyntax,
 			CancellationToken cancellationToken)
 		{
 			var root = await document.GetSyntaxRootAsync(
 				cancellationToken).ConfigureAwait(false);
 			var compilation = (CompilationUnitSyntax)root.ReplaceNode(
-				targetNode,
-				identifierName.WithLeadingTrivia(targetNode.GetLeadingTrivia()));
+				namespaceNode,
+				currentNode.WithLeadingTrivia(namespaceNode.GetLeadingTrivia()));
 
 			var usingStatement = SyntaxFactory.UsingDirective(namespaceSyntax);
 

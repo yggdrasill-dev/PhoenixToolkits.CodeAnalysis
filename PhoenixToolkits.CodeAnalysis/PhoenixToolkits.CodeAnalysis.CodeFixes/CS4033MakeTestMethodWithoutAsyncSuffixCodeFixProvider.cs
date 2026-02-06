@@ -22,7 +22,8 @@ namespace PhoenixToolkits.CodeAnalysis
 		private static readonly ImmutableHashSet<string> _UnitTestAttributeNames = ImmutableHashSet.Create(
 			"TestMethod",
 			"Test",
-			"Fact");
+			"Fact",
+			"Theory");
 
 		public override sealed ImmutableArray<string> FixableDiagnosticIds
 			=> ImmutableArray.Create(DiagnosticId, "CS4032");

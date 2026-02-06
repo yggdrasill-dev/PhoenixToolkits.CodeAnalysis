@@ -22,7 +22,7 @@ jobs:
           msbuild-architecture: x64
 
       - name: Restore dependencies
-        run: nuget restore
+        run: dotnet restore
 
       - name: Build
         run: "msbuild /p:Configuration=${{env.BuildConfiguration}}"

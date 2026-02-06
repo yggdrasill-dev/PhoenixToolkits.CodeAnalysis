@@ -3,10 +3,12 @@
 	<Metadata>
 		<Identity Id="PhoenixToolkits.CodeAnalysis.42fb5ede-6d27-458d-bcf0-96b4fb7d5746" Version="1.0" Language="en-US" Publisher="Phoenix"/>
 		<DisplayName>PhoenixToolkits.CodeAnalysis</DisplayName>
-		<Description xml:space="preserve">This is a sample diagnostic extension for the .NET Compiler Platform ("Roslyn").</Description>
+		<Description xml:space="preserve">程式碼分析器用在方便撰寫單元測試的小工具</Description>
 	</Metadata>
 	<Installation>
-		<InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[15.0,)" />
+		<InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[17.0,)" >
+			<ProductArchitecture>amd64</ProductArchitecture>
+		</InstallationTarget>
 	</Installation>
 	<Dependencies>
 		<Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.5,)" />

@@ -5,6 +5,8 @@
   <Project Path="PhoenixToolkits.CodeAnalysis/PhoenixToolkits.CodeAnalysis.CodeFixes/PhoenixToolkits.CodeAnalysis.CodeFixes.csproj" />
   <Project Path="PhoenixToolkits.CodeAnalysis/PhoenixToolkits.CodeAnalysis.Package/PhoenixToolkits.CodeAnalysis.Package.csproj" />
   <Project Path="PhoenixToolkits.CodeAnalysis/PhoenixToolkits.CodeAnalysis.Test/PhoenixToolkits.CodeAnalysis.Test.csproj" />
-  <Project Path="PhoenixToolkits.CodeAnalysis/PhoenixToolkits.CodeAnalysis.Vsix/PhoenixToolkits.CodeAnalysis.Vsix.csproj" />
+  <Project Path="PhoenixToolkits.CodeAnalysis/PhoenixToolkits.CodeAnalysis.Vsix/PhoenixToolkits.CodeAnalysis.Vsix.csproj">
+    <Build Project="false" />
+  </Project>
   <Project Path="PhoenixToolkits.CodeAnalysis/PhoenixToolkits.CodeAnalysis/PhoenixToolkits.CodeAnalysis.csproj" />
 </Solution>
